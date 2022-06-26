@@ -6,6 +6,15 @@ __pycache__/
 # C extensions
 *.so
 
+# 
+.dbdata
+
+# env
+.env
+.env.example
+.env.local
+.env.staging
+
 # Distribution / packaging
 .Python
 build/

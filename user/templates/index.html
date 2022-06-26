@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for project in projects %}
+<div class='project'>
+    <h2>{{ project['title'] }}</h2>
+    <p>{{ project['desc'] }}</p>
+
+    {% if project['id'] in session['id'] %}
+    <button disabled="disabled">Abgestimmt</button>
+    {% else %}
+    <form action="{{ url_for('index') }}?id={{ project['id'] }}" method="post">
+        {{ form.csrf_token }}
+        <div class="col">
+            {{ form.submit(id=project['id']) }}
+        </div>
+    </form>
+    {% endif %}
+
+</div>
+{% endfor %}
+{% endblock %}

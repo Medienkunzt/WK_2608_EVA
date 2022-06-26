@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <form action="{{ url_for('index') }}" method="post">
+        {{ form.csrf_token }}
+        <h3 class="form-header">Neues Projekt hinzufügen</h3>
+
+        <div class="form-group">
+            <label for="projectTitle">Titel</label>
+            {{ form.title(class="form-control form-title", placeholder="Projekttitel") }}
+            <small id="projectTitleHelp" class="form-text text-muted">Vergeben Sie einen aussagekräftigen Titel für das
+                Projekt.</small>
+        </div>
+        <div class="form-group">
+            <label for="projectDescription">Beschreibung</label>
+            {{ form.desc(class="form-control form-desc", placeholder="Projektbeschreibung") }}
+
+            <small id="projectDescriptionHelp" class="form-text text-muted">Vergeben Sie eine informative Beschreibung
+                für das Projekt.</small>
+        </div>
+
+        <div class="col">
+            {{ form.submit(class="btn btn-primary form-submit") }}
+        </div>
+
+    </form>
+</div>
+
+{% for project in projects %}
+<div class='project'>
+    <h2>{{ project.title }}</h2>
+    <p>{{ project.description }}</p>
+    <p>Stimmen: {{ project.likes }}</p>
+</div>
+{% endfor %}
+{% endblock %}
