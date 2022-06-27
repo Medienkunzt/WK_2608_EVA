@@ -1,6 +1,5 @@
 from app import app
 from flask_sqlalchemy import SQLAlchemy
-from producer import publish
 
 db = SQLAlchemy(app)
 
@@ -8,7 +7,6 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(256), nullable=False)
     description = db.Column(db.String(256), nullable=False)
-    likes = db.Column(db.Integer)
 
 
 def get_all_projects():
@@ -22,8 +20,8 @@ def init_db():
     db.drop_all()
     db.create_all()
 
-    project1 = Project(title="Erstes Projekt", description="Umsatzsteigerung um 4%", likes=3)
-    project2 = Project(title="Zweites Projekt", description="Einführung eines neuen ERP-Systems", likes=7)
+    project1 = Project(title="Erstes Projekt", description="Umsatzsteigerung um 4%")
+    project2 = Project(title="Zweites Projekt", description="Einführung eines neuen ERP-Systems")
 
     db.session.add(project1)
     db.session.add(project2)
@@ -31,14 +29,7 @@ def init_db():
     db.session.commit()
 
 def add_project(data):
-    project = Project(title=data['title'], description=data['desc'], likes=0)
+    project = Project(title=data['title'], description=data['desc'])
 
     db.session.add(project)
-    db.session.commit()
-
-
-def increment_likes(id):
-    project = Project.query.filter_by(id=id).first()
-    project.likes = project.likes + 1
-
     db.session.commit()

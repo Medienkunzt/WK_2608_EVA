@@ -4,13 +4,25 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    entrypoint: 'python'
+    command: 'app.py'
     ports:
-      - 5001:5000
+      - 5001:5001
     volumes:
       - .:/app
     depends_on:
       db:
         condition: service_healthy
+
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: 'python consumer.py'
+    depends_on:
+      db:
+        condition: service_healthy
+
   db:
     image: mysql:8.0
     restart: always
@@ -26,4 +38,4 @@ services:
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 10s
-      retries: 5
+      retries: 10

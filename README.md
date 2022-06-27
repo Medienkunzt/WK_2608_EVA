@@ -4,7 +4,7 @@
 - [ ] RabbitMQ
 - [ ] User Datenbank
 
-### Create '.env'-File in each folder
+### Create '.env'-File in each folder (WINDOWS)
 ```console
 cd user
 echo > .env

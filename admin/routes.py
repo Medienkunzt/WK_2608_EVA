@@ -1,4 +1,5 @@
 from operator import methodcaller
+from producer import publish
 from flask import Flask, render_template, url_for, redirect, request, jsonify, abort
 import json
 
@@ -31,7 +32,6 @@ def index():
 @app.route('/api/projects', methods=['GET'])
 def get_projects():
     r = db.get_all_projects()
-
     projects = []
 
     for project in r:
@@ -74,14 +74,17 @@ def update_project(id: int):
 
 @app.route('/add-project', methods=['GET', 'POST'])
 def add_project():
+    
     form = forms.AddProjectForm()
     if form.validate_on_submit():
         data = {
             'title': form.title.data,
             'desc': form.desc.data,
         }
-
+                
         db.add_project(data)
+        # send Data to RabitMQ
+        publish('createProject', data)
 
         return redirect(url_for('index'))
 
