@@ -1,4 +1,3 @@
-from operator import methodcaller
 from producer import publish
 from flask import Flask, render_template, url_for, redirect, request, jsonify, abort
 import json
@@ -8,7 +7,7 @@ from app import app
 import forms
 import db
 
-db.init_db()
+#db.init_db()
 
 # Visualizes all existing projects
 @app.route('/', methods=['GET', 'POST'])
@@ -23,6 +22,9 @@ def index():
         }
 
         db.add_project(data)
+
+        # send Data to RabitMQ
+        publish('createProject', data)
 
         return redirect(url_for('index'))
 
@@ -83,8 +85,6 @@ def add_project():
         }
                 
         db.add_project(data)
-        # send Data to RabitMQ
-        publish('createProject', data)
 
         return redirect(url_for('index'))
 

@@ -5,7 +5,7 @@ import db
 from app import app
 import forms
 
-db.init_db()
+#db.init_db()
 
 session_ids = []
 
@@ -13,19 +13,20 @@ session_ids = []
 def index():
     print(session)
 
-    # r = requests.get('http://localhost:5000/api/projects').content
-    # projects = json.loads(r)
     projects = db.get_all_projects()
+    print(projects)
+
+    for project in projects:
+        print(project)
 
     form = forms.VoteForm()
     if form.validate_on_submit():
         button_id = int(request.args.get('id'))
 
-        #session_ids.append(button_id)
+        # If you want to vote only once
+        # session_ids.append(button_id)
+        # session['id'] = session_ids
 
-        #session['id'] = session_ids
-
-        #requests.get('http://localhost:5000/api/project/likes/' + str(button_id) )
         publish('like', button_id)
 
         return redirect(url_for('index'))

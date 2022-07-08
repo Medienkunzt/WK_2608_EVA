@@ -5,7 +5,7 @@
 {% for project in projects %}
 <div class='project'>
     <h2>{{ project['title'] }}</h2>
-    <p>{{ project['desc'] }}</p>
+    <p>{{ project['description'] }}</p>
 
     {% if project['id'] in session['id'] %}
     <button disabled="disabled">Abgestimmt</button>

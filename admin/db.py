@@ -1,6 +1,5 @@
 from app import app
 from flask_sqlalchemy import SQLAlchemy
-from producer import publish
 
 db = SQLAlchemy(app)
 
