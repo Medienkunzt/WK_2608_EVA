@@ -1,8 +1,9 @@
 ##TODOs
-- [x] Admin und User Dockern
-- [x] URL und Passwörter in .env auslagern
-- [ ] RabbitMQ
-- [ ] User Datenbank
+- [x] Web Server entwickeln (GUI und APIs)
+- [x] Kommunikation zwischen beiden Webservern
+- [x] Persistierung mittels Datenbank
+- [x] RabbitMQ als Message Broker konfigurieren
+- [x] Containerisierung mittels Docker
 
 ### Create '.env'-File in each folder (WINDOWS)
 ```console
